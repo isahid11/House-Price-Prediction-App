@@ -30,10 +30,10 @@ We use the **Paris Housing dataset** (from Kaggle) to train and evaluate multipl
   git clone https://github.com/your-username/house-price-prediction.git
   cd house-price-prediction
 
-2.Install dependencies:
+2. Install dependencies:
   pip install -r requirements.txt
 
-3.Run the Streamlit app:
+3. Run the Streamlit app:
   streamlit run app.py
 
 
