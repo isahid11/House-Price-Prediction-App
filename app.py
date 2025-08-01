@@ -11,8 +11,8 @@ st.title("Housing Price Predictor")
 st.markdown("Enter the property details below:")
 
 # Input fields
-squareMeters = st.number_input("Total Area (in square meters)", min_value=10, max_value=100000)
-numberOfRooms = st.number_input("Number of Rooms", min_value=1, max_value=100)
+squareMeters = st.number_input("Total Area (in square meters)", min_value=10, max_value=1000)
+numberOfRooms = st.number_input("Number of Rooms", min_value=1, max_value=10)
 hasYard = st.selectbox("Has Yard?", ["No", "Yes"])
 hasPool = st.selectbox("Has Pool?", ["No", "Yes"])
 floors = st.number_input("Number of Floors", min_value=1, max_value=10)
@@ -55,3 +55,4 @@ if st.button("Predict Price"):
     input_scaled = scaler.transform(input_array)
     prediction = model.predict(input_scaled)[0]
     st.success(f"Predicted House Price: ${prediction:,.2f}")
+
