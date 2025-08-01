@@ -40,10 +40,30 @@ We use the **Paris Housing dataset** (from Kaggle) to train and evaluate multipl
 **How to Deploy on Streamlit Cloud**
 *Upload this repository to your GitHub account (make it public).*
 
-- `Go to https://streamlit.io/cloud` 
+- `Go to https://streamlit.io/cloud`
 
 - `Click on “Deploy an App”.` 
 
 - `Connect your GitHub repo and select app.py as the main file.` 
 
 - `Wait for it to deploy and share your app link!` 
+
+📊 Features Used for Prediction
+
+*squareMeters
+*numberOfRooms
+*hasYard
+*hasPool
+*floors
+*cityCode
+*cityPartRange
+*numPrevOwners
+*made
+*isNewBuilt
+*hasStormProtector
+*basement
+*attic
+*garage
+*hasStorageRoom
+*hasGuestRoom
+*house_age
