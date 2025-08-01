@@ -3,42 +3,61 @@ import streamlit as st
 import joblib
 import numpy as np
 
-# Load model
+# Load model and scaler
 model = joblib.load('best_model.pkl')
+scaler = joblib.load('scaler.pkl')
 
 st.title("Housing Price Predictor")
 st.markdown("Enter the property details below:")
 
-# Numeric Features
-numeric_features = {
-    "Total Area (in square meters)": 10,
-    "Number of Rooms": 1,
-    "Number of Floors": 1,
-    "City Code": 1,
-    "City Part Range": 1,
-    "Number of Previous Owners": 0,
-    "House Age (in years)": 0
-}
+# Input order must match model training
 
-numeric_inputs = []
-for label, min_val in numeric_features.items():
-    val = st.number_input(label, min_value=min_val)
-    numeric_inputs.append(val)
+squareMeters = st.number_input("Total Area (in square meters)", min_value=10)
+numberOfRooms = st.number_input("Number of Rooms", min_value=1)
+hasYard = st.selectbox("Has Yard?", ["No", "Yes"])
+hasPool = st.selectbox("Has Pool?", ["No", "Yes"])
+floors = st.number_input("Number of Floors", min_value=1)
+cityCode = st.number_input("City Code", min_value=1)
+cityPartRange = st.number_input("City Part Range", min_value=1)
+numPrevOwners = st.number_input("Number of Previous Owners", min_value=0)
+isNewBuilt = st.selectbox("Is Newly Built?", ["No", "Yes"])
+hasStormProtector = st.selectbox("Has Storm Protector?", ["No", "Yes"])
+basement = st.selectbox("Has Basement?", ["No", "Yes"])
+attic = st.selectbox("Has Attic?", ["No", "Yes"])
+garage = st.selectbox("Has Garage?", ["No", "Yes"])
+hasStorageRoom = st.selectbox("Has Storage Room?", ["No", "Yes"])
+hasGuestRoom = st.selectbox("Has Guest Room?", ["No", "Yes"])
 
-# Binary Features
-binary_labels = [
-    "Has Yard?", "Has Pool?", "Is Newly Built?", "Has Storm Protector?",
-    "Has Basement?", "Has Attic?", "Has Garage?", 
-    "Has Storage Room?", "Has Guest Room?"
+# 5. Final numeric
+house_age = st.number_input("House Age (in years)", min_value=0)
+
+# Map binary to 0/1
+binary_map = lambda x: 1 if x == "Yes" else 0
+input_data = [
+    squareMeters,
+    numberOfRooms,
+    binary_map(hasYard),
+    binary_map(hasPool),
+    floors,
+    cityCode,
+    cityPartRange,
+    numPrevOwners,
+    binary_map(isNewBuilt),
+    binary_map(hasStormProtector),
+    binary_map(basement),
+    binary_map(attic),
+    binary_map(garage),
+    binary_map(hasStorageRoom),
+    binary_map(hasGuestRoom),
+    house_age
 ]
-
-binary_inputs = []
-for label in binary_labels:
-    val = st.selectbox(label, ["No", "Yes"])
-    binary_inputs.append(1 if val == "Yes" else 0)
 
 # Predict
 if st.button("Predict Price"):
-    input_array = np.array([numeric_inputs[:2] + binary_inputs[:2] + numeric_inputs[2:] + binary_inputs[2:]])
-    prediction = model.predict(input_array)[0]
+    # Convert to numpy and scale
+    input_array = np.array(input_data).reshape(1, -1)
+    input_scaled = scaler.transform(input_array)
+
+    # Make prediction
+    prediction = model.predict(input_scaled)[0]
     st.success(f"Predicted House Price: ${prediction:,.2f}")
