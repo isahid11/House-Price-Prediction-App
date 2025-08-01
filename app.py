@@ -3,38 +3,42 @@ import streamlit as st
 import joblib
 import numpy as np
 
-# Load the trained model
+# Load model
 model = joblib.load('best_model.pkl')
 
-# Streamlit app UI
 st.title("Housing Price Predictor")
-
 st.markdown("Enter the property details below:")
 
-# Create input fields for each feature
-squareMeters = st.number_input("Total Area (in square meters)", min_value=10)
-numberOfRooms = st.number_input("Number of Rooms", min_value=1)
-hasYard = st.selectbox("Has Yard?", [0, 1])
-hasPool = st.selectbox("Has Pool?", [0, 1])
-floors = st.number_input("Number of Floors", min_value=1)
-cityCode = st.number_input("City Code", min_value=1)
-cityPartRange = st.number_input("City Part Range", min_value=1)
-numPrevOwners = st.number_input("Number of Previous Owners", min_value=0)
-isNewBuilt = st.selectbox("Is Newly Built?", [0, 1])
-hasStormProtector = st.selectbox("Has Storm Protector?", [0, 1])
-basement = st.selectbox("Has Basement?", [0, 1])
-attic = st.selectbox("Has Attic?", [0, 1])
-garage = st.selectbox("Has Garage?", [0, 1])
-hasStorageRoom = st.selectbox("Has Storage Room?", [0, 1])
-hasGuestRoom = st.selectbox("Has Guest Room?", [0, 1])
-house_age = st.number_input("House Age (in years)", min_value=0)
+# Numeric Features
+numeric_features = {
+    "Total Area (in square meters)": 10,
+    "Number of Rooms": 1,
+    "Number of Floors": 1,
+    "City Code": 1,
+    "City Part Range": 1,
+    "Number of Previous Owners": 0,
+    "House Age (in years)": 0
+}
 
-# Predict button
+numeric_inputs = []
+for label, min_val in numeric_features.items():
+    val = st.number_input(label, min_value=min_val)
+    numeric_inputs.append(val)
+
+# Binary Features
+binary_labels = [
+    "Has Yard?", "Has Pool?", "Is Newly Built?", "Has Storm Protector?",
+    "Has Basement?", "Has Attic?", "Has Garage?", 
+    "Has Storage Room?", "Has Guest Room?"
+]
+
+binary_inputs = []
+for label in binary_labels:
+    val = st.selectbox(label, ["No", "Yes"])
+    binary_inputs.append(1 if val == "Yes" else 0)
+
+# Predict
 if st.button("Predict Price"):
-    features = np.array([[squareMeters, numberOfRooms, hasYard, hasPool, floors,
-                          cityCode, cityPartRange, numPrevOwners, isNewBuilt,
-                          hasStormProtector, basement, attic, garage,
-                          hasStorageRoom, hasGuestRoom, house_age]])
-    
-    prediction = model.predict(features)[0]
+    input_array = np.array([numeric_inputs[:2] + binary_inputs[:2] + numeric_inputs[2:] + binary_inputs[2:]])
+    prediction = model.predict(input_array)[0]
     st.success(f"Predicted House Price: ${prediction:,.2f}")
