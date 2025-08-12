@@ -1,85 +1,63 @@
-# House-Price-Prediction-App
-A simple machine learning project to predict house prices using Random Forest and deploy it using Streamlit. Includes data analysis, feature importance, model training, and an interactive web app for predictions.
+# Housing Price Prediction – Paris Dataset
 
-
-# 🏡 House Price Prediction using Machine Learning
-
-This project is part of the SIG720 Task 5D submission. The goal is to build a machine learning model that predicts house prices based on property features, and deploy the model using a simple web app built with Streamlit.
+A regression-based machine learning project to predict housing prices using the **Paris Housing Price Prediction** dataset from Kaggle. The project involves **EDA, feature importance analysis, model comparison, and deployment as a Streamlit web app**.
 
 ---
 
 ## 📌 Project Overview
-
-We use the **Paris Housing dataset** (from Kaggle) to train and evaluate multiple regression models. The final model (Random Forest Regressor) is saved and deployed using Streamlit to allow users to input features and get a predicted house price.
-
----
-
-## 📂 Files in This Repository
-
-- `app.py` – Streamlit app code for prediction
-- `best_model.pkl` – Trained Random Forest model
-- `requirements.txt` – List of Python packages needed
-- `ParisHousing.csv` – Dataset used (optional if you're not uploading the CSV)
-- `EDA_and_Modeling.ipynb` – Notebook with data analysis, model training, and feature importance
+This project is part of **SIG720 – Machine Learning (Task 5D)** at Deakin University.  
+The objective is to **predict housing prices** based on various property features, evaluate multiple regression models, and build a user-friendly web tool for predictions.
 
 ---
 
-## 🚀 How to Run This App Locally
+## 📂 Dataset
+- **Source:** https://www.kaggle.com/datasets/mssmartypants/paris-housing-price-prediction
+- **Size:** ~10,000 rows × 16 features
+- **Features include:** Square meters, number of rooms, city code, floors, hasYard, hasPool, attic, basement, garage, and more.
 
-1. Clone the repo:
-  git clone [https://github.com/isahid11/house-price-prediction.git](https://github.com/isahid11/House-Price-Prediction-App)
-  cd house-price-prediction
+---
 
-2. Install dependencies:
-  pip install -r requirements.txt
+## 🔍 Workflow
+1. **Data Preprocessing** – Handling data types, scaling, and preparing features.
+2. **EDA** – Price distribution, suburb-wise comparison, correlation heatmap, outlier detection.
+3. **Model Development** – Linear Regression, Random Forest, XGBoost with cross-validation.
+4. **Performance Evaluation** – MAE, RMSE, R² metrics comparison.
+5. **Feature Importance** – Model-based and SHAP value analysis.
+6. **Deployment** – Streamlit web application for live predictions.
 
-3. Run the Streamlit app:
-  streamlit run app.py
+---
 
+## 📊 Model Performance
 
-**How to Deploy on Streamlit Cloud**
-*Upload this repository to your GitHub account (make it public).*
+| Model              | MAE       | RMSE      | R²       |
+|--------------------|-----------|-----------|----------|
+| Linear Regression  | 1480.97   | 1900.10   | 1.000000 |
+| Random Forest      | 3096.67   | 3873.87   | 0.999998 |
+| XGBoost            | 11816.84  | 14446.83  | 0.999975 |
 
-- `Go to https://streamlit.io/cloud`
+---
 
-- `Click on “Deploy an App”.` 
+## 🌟 Key Insights
+- **Square Meters** is the most influential feature in predicting prices.
+- Model-based and SHAP analyses strongly align in feature importance rankings.
+- Linear Regression slightly outperformed others in terms of error metrics.
 
-- `Connect your GitHub repo and select app.py as the main file.` 
+---
 
-- `Wait for it to deploy and share your app link!` 
+## 🚀 Deployment
+- **Web App:** [Streamlit App Link](https://house-price-prediction-app-hppapp.streamlit.app/)
+- Users can input property details to get an instant price prediction.
 
-📊 Features Used for Prediction
+---
 
-*squareMeters*
+## 📚 References & Resources
+- Kaggle Dataset: https://www.kaggle.com/datasets/mssmartypants/paris-housing-price-prediction
+- Deakin University SIG720 Course Materials
+- Google Machine Learning Documentation
+- Scikit-learn Documentation: https://scikit-learn.org/stable/
 
-*numberOfRooms*
+---
 
-*hasYard*
-
-*hasPool*
-
-*floors*
-
-*cityCode*
-
-*cityPartRange*
-
-*numPrevOwners*
-
-*made*
-
-*isNewBuilt*
-
-*hasStormProtector*
-
-*basement*
-
-*attic*
-
-*garage*
-
-*hasStorageRoom*
-
-*hasGuestRoom*
-
-*house_age*
+## 📜 License
+This project is licensed under the **MIT License** – see the LICENSE file for details.  
+Dataset usage is subject to **Kaggle’s dataset terms**.
