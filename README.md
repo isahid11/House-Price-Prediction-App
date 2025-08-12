@@ -27,7 +27,7 @@ We use the **Paris Housing dataset** (from Kaggle) to train and evaluate multipl
 ## 🚀 How to Run This App Locally
 
 1. Clone the repo:
-  git clone https://github.com/isahid11/house-price-prediction.git
+  git clone [https://github.com/isahid11/house-price-prediction.git](https://github.com/isahid11/House-Price-Prediction-App)
   cd house-price-prediction
 
 2. Install dependencies:
